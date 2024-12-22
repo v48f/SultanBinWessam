@@ -3,67 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creative Web Trick</title>
+    <title>Snake Game</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            overflow: hidden;
-        }
-        h1, .typing-effect {
             margin: 0;
-            padding: 0;
-            text-align: center;
+            height: 100vh;
+            background-color: #1e3c72;
+            color: white;
         }
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 3s forwards;
-        }
-        .typing-effect {
-            font-size: 1.8rem;
-            border-right: 3px solid white;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            animation: typing 3s steps(30) forwards, blink 0.6s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 16ch; }
-        }
-
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        footer {
-            position: absolute;
-            bottom: 10px;
-            font-size: 1rem;
+            margin: 0;
+            font-size: 2rem;
             text-align: center;
-            opacity: 0.7;
+        }
+        canvas {
+            border: 2px solid white;
+            background-color: black;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #ddd;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the Creative Space</h1>
-    <div class="typing-effect">Made by Sultan Wissam Hassan Al-Oufi</div>
-    <footer>&copy; 2024 OnlyBnex</footer>
+    <h1>Snake Game</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <footer>Made by Sultan Wissam Hassan Al-Oufi</footer>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const box = 20; // Size of each box in the grid
+        let snake = [{ x: 9 * box, y: 10 * box }]; // Initial snake position
+        let direction = null;
+        let food = {
+            x: Math.floor(Math.random() * 19) * box,
+            y: Math.floor(Math.random() * 19) * box,
+        };
+        let score = 0;
+
+        document.addEventListener('keydown', changeDirection);
+
+        function changeDirection(event) {
+            if (event.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
+            if (event.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
+            if (event.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
+            if (event.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+        }
+
+        function drawGame() {
+            // Clear the canvas
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the food
+            ctx.fillStyle = 'red';
+            ctx.fillRect(food.x, food.y, box, box);
+
+            // Draw the snake
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = i === 0 ? 'lime' : 'green';
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            // Move the snake
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            if (direction === 'UP') snakeY -= box;
+            if (direction === 'DOWN') snakeY += box;
+            if (direction === 'LEFT') snakeX -= box;
+            if (direction === 'RIGHT') snakeX += box;
+
+            // Check if the snake eats the food
+            if (snakeX === food.x && snakeY === food.y) {
+                food = {
+                    x: Math.floor(Math.random() * 19) * box,
+                    y: Math.floor(Math.random() * 19) * box,
+                };
+                score++;
+            } else {
+                snake.pop(); // Remove the tail
+            }
+
+            // Add new head to the snake
+            const newHead = { x: snakeX, y: snakeY };
+
+            // Check for collisions
+            if (
+                snakeX < 0 || snakeY < 0 || 
+                snakeX >= canvas.width || snakeY >= canvas.height || 
+                collision(newHead, snake)
+            ) {
+                clearInterval(game);
+                alert(`Game Over! Your Score: ${score}`);
+            }
+
+            snake.unshift(newHead);
+
+            // Draw the score
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Score: ${score}`, 10, 20);
+        }
+
+        function collision(head, snake) {
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        const game = setInterval(drawGame, 100);
+    </script>
 </body>
 </html>
