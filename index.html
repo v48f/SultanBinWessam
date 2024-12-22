@@ -120,6 +120,12 @@
             if (direction === 'LEFT') snakeX -= box;
             if (direction === 'RIGHT') snakeX += box;
 
+            // Check for boundary collisions and wrap around
+            if (snakeX < 0) snakeX = canvas.width - box;
+            if (snakeX >= canvas.width) snakeX = 0;
+            if (snakeY < 0) snakeY = canvas.height - box;
+            if (snakeY >= canvas.height) snakeY = 0;
+
             // Check if the snake eats the food
             if (snakeX === food.x && snakeY === food.y) {
                 food = {
@@ -157,7 +163,7 @@
             return false;
         }
 
-        const game = setInterval(drawGame, 100);
+        const game = setInterval(drawGame, 200); // Slow down the game to 200ms per frame
     </script>
 </body>
 </html>
