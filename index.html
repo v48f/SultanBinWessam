@@ -15,6 +15,7 @@
             height: 100vh;
             background-color: #1e3c72;
             color: white;
+            overflow: hidden;
         }
         h1 {
             margin: 0;
@@ -24,6 +25,27 @@
         canvas {
             border: 2px solid white;
             background-color: black;
+        }
+        .controls {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-gap: 10px;
+            justify-content: center;
+        }
+        .controls button {
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .controls button:active {
+            background-color: #1e3c72;
         }
         footer {
             margin-top: 20px;
@@ -35,21 +57,32 @@
 <body>
     <h1>Snake Game</h1>
     <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div class="controls">
+        <button id="up">↑</button>
+        <button id="left">←</button>
+        <button id="right">→</button>
+        <button id="down">↓</button>
+    </div>
     <footer>Made by Sultan Wissam Hassan Al-Oufi</footer>
 
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
-        const box = 20; // Size of each box in the grid
+        const box = 20; // Size of each grid unit
         let snake = [{ x: 9 * box, y: 10 * box }]; // Initial snake position
         let direction = null;
         let food = {
-            x: Math.floor(Math.random() * 19) * box,
-            y: Math.floor(Math.random() * 19) * box,
+            x: Math.floor(Math.random() * 20) * box,
+            y: Math.floor(Math.random() * 20) * box,
         };
         let score = 0;
 
+        // Event listeners for controls
+        document.getElementById('up').addEventListener('click', () => { if (direction !== 'DOWN') direction = 'UP'; });
+        document.getElementById('down').addEventListener('click', () => { if (direction !== 'UP') direction = 'DOWN'; });
+        document.getElementById('left').addEventListener('click', () => { if (direction !== 'RIGHT') direction = 'LEFT'; });
+        document.getElementById('right').addEventListener('click', () => { if (direction !== 'LEFT') direction = 'RIGHT'; });
         document.addEventListener('keydown', changeDirection);
 
         function changeDirection(event) {
@@ -64,14 +97,18 @@
             ctx.fillStyle = 'black';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw the food
+            // Draw the food as a circle
+            ctx.beginPath();
             ctx.fillStyle = 'red';
-            ctx.fillRect(food.x, food.y, box, box);
+            ctx.arc(food.x + box / 2, food.y + box / 2, box / 2, 0, 2 * Math.PI);
+            ctx.fill();
 
-            // Draw the snake
+            // Draw the snake as circles
             for (let i = 0; i < snake.length; i++) {
+                ctx.beginPath();
                 ctx.fillStyle = i === 0 ? 'lime' : 'green';
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                ctx.arc(snake[i].x + box / 2, snake[i].y + box / 2, box / 2, 0, 2 * Math.PI);
+                ctx.fill();
             }
 
             // Move the snake
@@ -86,8 +123,8 @@
             // Check if the snake eats the food
             if (snakeX === food.x && snakeY === food.y) {
                 food = {
-                    x: Math.floor(Math.random() * 19) * box,
-                    y: Math.floor(Math.random() * 19) * box,
+                    x: Math.floor(Math.random() * 20) * box,
+                    y: Math.floor(Math.random() * 20) * box,
                 };
                 score++;
             } else {
@@ -97,12 +134,8 @@
             // Add new head to the snake
             const newHead = { x: snakeX, y: snakeY };
 
-            // Check for collisions
-            if (
-                snakeX < 0 || snakeY < 0 || 
-                snakeX >= canvas.width || snakeY >= canvas.height || 
-                collision(newHead, snake)
-            ) {
+            // Check for collisions with the snake itself
+            if (collision(newHead, snake)) {
                 clearInterval(game);
                 alert(`Game Over! Your Score: ${score}`);
             }
