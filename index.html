@@ -6,13 +6,23 @@
   <style>
     body {
       margin: 0;
-      font-family: monospace;
+      font-family: 'Courier New', monospace;
       background-color: black;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+      background-image: url("https://www.transparenttextures.com/patterns/blood.png"); /* خلفية دم */
+      background-repeat: repeat;
       color: white;
       text-align: center;
       user-select: none;
       overflow: hidden;
+      animation: shake 0.4s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: translate(1px, 1px); }
+      25% { transform: translate(-1px, 1px); }
+      50% { transform: translate(1px, -1px); }
+      75% { transform: translate(-1px, -1px); }
+      100% { transform: translate(1px, 1px); }
     }
 
     .container {
@@ -22,34 +32,38 @@
     .image {
       width: 300px;
       border: 2px solid white;
-      box-shadow: 0 0 20px red;
+      box-shadow: 0 0 25px crimson;
     }
 
     .title {
-      font-size: 2em;
+      font-size: 2.5em;
       margin: 20px 0;
-      color: red;
+      color: crimson;
+      text-shadow: 0 0 10px red;
     }
 
     .box {
-      background-color: #111;
-      border: 1px solid green;
+      background-color: #1a0000;
+      border: 2px dashed crimson;
       display: inline-block;
-      padding: 20px;
-      text-align: left;
+      padding: 25px;
       direction: rtl;
+      max-width: 90%;
     }
 
     .terminal {
-      color: lime;
-      font-size: 14px;
-      line-height: 1.6;
+      color: #ff4d4d;
+      font-size: 15px;
+      font-family: 'Lucida Console', Monaco, monospace;
+      line-height: 1.7;
+      text-align: right;
     }
 
     .footer {
-      margin-top: 30px;
-      font-size: 12px;
-      color: gray;
+      margin-top: 40px;
+      font-size: 13px;
+      color: darkred;
+      text-shadow: 0 0 5px red;
     }
 
     .audio-control {
@@ -77,12 +91,11 @@
       }
     });
 
-    // محاولة تشغيل الصوت مباشرة بعد تحميل الصفحة
+    // محاولة تشغيل الصوت بعد التحميل
     window.addEventListener("load", function () {
       const audio = document.getElementById("prank-audio");
       audio.volume = 0.8;
       audio.play().catch(() => {
-        // لو المتصفح منع التشغيل التلقائي، ننتظر أول تفاعل
         document.addEventListener("click", () => {
           audio.play();
         }, { once: true });
@@ -100,15 +113,15 @@
     <div class="box">
       <div class="terminal">
         <strong>instagram : v48f</strong><br><br>
-        website@system:~$ Take This<br><br>
-        السلام عليكم ورحمة الله وبركاته<br>
-        <strong>.</strong> لديك موقع جميل مليئ بثغرات<br><br>
-        <span style="color: #0ff">#i_see_you</span>
+        <b>system://</b> هذا ليس تحذير، بل إعلان انتهاء<br><br>
+        هناك ثغرة في موقعك تركتك مكشوفًا أكثر من اللازم.<br>
+        <b>بنكس:</b> لقد دخلت دون إذن، ولن تعرف كيف خرجت.<br><br>
+        <span style="color: #ff0000">#نزف_النظام</span>
       </div>
     </div>
 
     <div class="footer">
-      تم تخطي حماية الموقع✅
+      تم الوصول إلى جذور النظام 🔻
     </div>
   </div>
 
