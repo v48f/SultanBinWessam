@@ -29,21 +29,23 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.2;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
       pointer-events: none;
-      background: url('https://media.giphy.com/media/l0Exk8EUzSLsrErEQ/giphy.gif') center center / cover no-repeat;
-      animation: smokeMove 10s linear infinite;
+      background: url('https://i.imgur.com/8iRkL6f.gif') center center / cover no-repeat;
+      opacity: 0.15;
+      animation: smokeFloat 20s linear infinite;
     }
 
-    @keyframes smokeMove {
+    @keyframes smokeFloat {
       0% { background-position: center top; }
       100% { background-position: center bottom; }
     }
 
     .container {
+      position: relative;
+      z-index: 1;
       margin-top: 50px;
     }
 
@@ -84,12 +86,9 @@
       text-shadow: 0 0 5px red;
     }
 
-    .audio-control {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
+    /* إخفاء الصوت */
+    audio {
+      display: none !important;
     }
   </style>
 
@@ -109,7 +108,7 @@
       }
     });
 
-    // تشغيل الصوت تلقائيًا
+    // تشغيل الصوت تلقائيًا أو عند أول تفاعل
     window.addEventListener("load", function () {
       const audio = document.getElementById("prank-audio");
       audio.volume = 0.6;
@@ -146,10 +145,8 @@
     </div>
   </div>
 
-  <!-- صوت خارجي شغال -->
-  <div class="audio-control">
-    <audio id="prank-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop controls></audio>
-  </div>
+  <!-- صوت خارجي بدون تحكم -->
+  <audio id="prank-audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
 
 </body>
 </html>
