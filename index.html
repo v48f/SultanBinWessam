@@ -8,7 +8,7 @@
       margin: 0;
       font-family: 'Courier New', monospace;
       background-color: black;
-        background-image: url("5748D43A-D51D-40B5-B99C-55EDD67304E7.gif?ex=6873e4f5&is=68729375&hm=782f460e2b297b79617807625ee25cd5473f50df29f2afc1265660bdd2af4449&");
+      background-image: url("5748D43A-D51D-40B5-B99C-55EDD67304E7.gif?ex=6873e4f5&is=68729375&hm=782f460e2b297b79617807625ee25cd5473f50df29f2afc1265660bdd2af4449&");
       background-repeat: repeat;
       color: white;
       text-align: center;
@@ -86,17 +86,14 @@
       text-shadow: 0 0 5px red;
     }
 
-    /* إخفاء الصوت */
     audio {
       display: none !important;
     }
   </style>
 
   <script>
-    // منع كلك يمين
     document.addEventListener("contextmenu", e => e.preventDefault());
 
-    // منع Ctrl + U أو F12
     document.addEventListener("keydown", function (e) {
       if (
         e.ctrlKey && (e.key === 'u' || e.key === 'U') ||
@@ -108,7 +105,6 @@
       }
     });
 
-    // تشغيل الصوت تلقائيًا أو عند أول تفاعل
     window.addEventListener("load", function () {
       const audio = document.getElementById("prank-audio");
       audio.volume = 0.6;
@@ -123,11 +119,11 @@
 
 <body ondragstart="return false" onselectstart="return false" oncopy="return false" oncut="return false">
 
-  <!-- دخان الخلفية -->
   <div class="smoke"></div>
 
   <div class="container">
-    <img class="image" src="image.gif" alt="Hacked">
+    <img class="image" src="https://cdn.discordapp.com/attachments/1382619099766456410/1393639082231336971/copy_31FBFF96-7A21-4B55-84D9-48CAA3A08960.gif?ex=6873e709&is=68729589&hm=5d9719e86189fdaba480a4715b30da625a0bd6f9fa7192e13f9cd0485529d0bc&" alt="Hacked">
+    
     <div class="title">HACKED BY BNEX</div>
     
     <div class="box">
@@ -145,7 +141,6 @@
     </div>
   </div>
 
-  <!-- صوت خارجي بدون تحكم -->
   <audio id="prank-audio" src="https://cdn.discordapp.com/attachments/1382619099766456410/1393632169901031556/Music.mp3?ex=6873e099&is=68728f19&hm=587fc7689497e58e81742413149453946f35c4defde71f232e3f79a3ced9b882&" autoplay loop></audio>
 
 </body>
