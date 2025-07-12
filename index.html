@@ -1,38 +1,103 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="utf-8" />
-    <title>سلطان الحربي – Pixel Vibes</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="assets/img/avatar.png" />
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <!-- شاشة البداية -->
-    <section id="intro" class="center">
-      <button id="startBtn" class="pixel-btn">اضغط هنا</button>
-    </section>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Hacked By BNEX</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      background-color: black;
+      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png"); /* خلفية مربعات */
+      color: white;
+      text-align: center;
+      user-select: none;         /* منع تحديد النص */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      overflow: hidden;
+    }
 
-    <!-- محتوى الموقع بعد التشغيل -->
-    <main id="scene" hidden>
-      <img src="assets/img/avatar.png" alt="سلطان الحربي" id="avatar" />
-      <h1 class="name">سلطان الحربي</h1>
+    .container {
+      margin-top: 50px;
+    }
 
-      <!-- عناصر التأثير الفيزيائي -->
-      <canvas id="fxCanvas"></canvas>
+    .image {
+      width: 300px;
+      border: 2px solid white;
+      box-shadow: 0 0 20px red;
+    }
 
-      <!-- رسائل عشوائية -->
-      <div id="toast"></div>
+    .title {
+      font-size: 2em;
+      margin: 20px 0;
+      color: red;
+    }
 
-      <!-- أزرار التحكم -->
-      <div id="controls">
-        <button id="partyBtn" class="pixel-btn">🔊 وضع المرح</button>
-        <a href="https://instagram.com/v48f" target="_blank" aria-label="Instagram" class="icon ig"></a>
+    .box {
+      background-color: #111;
+      border: 1px solid green;
+      display: inline-block;
+      padding: 20px;
+      text-align: left;
+      direction: rtl;
+    }
+
+    .terminal {
+      color: lime;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+
+  <script>
+    // منع كلك يمين
+    document.addEventListener("contextmenu", e => e.preventDefault());
+
+    // منع Ctrl + U أو F12
+    document.addEventListener("keydown", function (e) {
+      if (
+        e.ctrlKey && (e.key === 'u' || e.key === 'U') ||
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||  // Ctrl+Shift+I
+        (e.ctrlKey && e.shiftKey && e.key === 'J')     // Ctrl+Shift+J
+      ) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</head>
+
+<body ondragstart="return false" onselectstart="return false" oncopy="return false" oncut="return false">
+  <!-- تشغيل الصوت تلقائي -->
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    متصفحك لا يدعم تشغيل الصوت.
+  </audio>
+
+  <div class="container">
+    <img class="image" src="image.gif" alt="Hacked">
+    <div class="title">HACKED BY BNEX</div>
+    
+    <div class="box">
+      <div class="terminal">
+        <strong>instagram : v48f</strong><br><br>
+        mystery@system:~$ why?<br><br>
+        السلام عليكم ورحمة الله وبركاته<br>
+        <strong>BNEX :</strong>لديك موقع جميل مليئ بثغرات<br><br>
+        <span style="color: #0ff">#السيرفر_مليون_نقرة</span>
       </div>
-    </main>
+    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
-    <script src="js/main.js" type="module"></script>
-  </body>
+    <div class="footer">
+      تم تخطي حماية الموقع✅
+    </div>
+  </div>
+</body>
 </html>
