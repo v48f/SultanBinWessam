@@ -8,13 +8,10 @@
       margin: 0;
       font-family: monospace;
       background-color: black;
-      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png"); /* خلفية مربعات */
+      background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
       color: white;
       text-align: center;
-      user-select: none;         /* منع تحديد النص */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
+      user-select: none;
       overflow: hidden;
     }
 
@@ -54,6 +51,14 @@
       font-size: 12px;
       color: gray;
     }
+
+    .audio-control {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+    }
   </style>
 
   <script>
@@ -65,21 +70,28 @@
       if (
         e.ctrlKey && (e.key === 'u' || e.key === 'U') ||
         e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||  // Ctrl+Shift+I
-        (e.ctrlKey && e.shiftKey && e.key === 'J')     // Ctrl+Shift+J
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J')
       ) {
         e.preventDefault();
       }
+    });
+
+    // محاولة تشغيل الصوت مباشرة بعد تحميل الصفحة
+    window.addEventListener("load", function () {
+      const audio = document.getElementById("prank-audio");
+      audio.volume = 0.8;
+      audio.play().catch(() => {
+        // لو المتصفح منع التشغيل التلقائي، ننتظر أول تفاعل
+        document.addEventListener("click", () => {
+          audio.play();
+        }, { once: true });
+      });
     });
   </script>
 </head>
 
 <body ondragstart="return false" onselectstart="return false" oncopy="return false" oncut="return false">
-  <!-- تشغيل الصوت تلقائي -->
-  <audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
-    متصفحك لا يدعم تشغيل الصوت.
-  </audio>
 
   <div class="container">
     <img class="image" src="image.gif" alt="Hacked">
@@ -90,7 +102,7 @@
         <strong>instagram : v48f</strong><br><br>
         website@system:~$ Take This<br><br>
         السلام عليكم ورحمة الله وبركاته<br>
-        <strong>.</strong>لديك موقع جميل مليئ بثغرات<br><br>
+        <strong>.</strong> لديك موقع جميل مليئ بثغرات<br><br>
         <span style="color: #0ff">#i_see_you</span>
       </div>
     </div>
@@ -99,5 +111,11 @@
       تم تخطي حماية الموقع✅
     </div>
   </div>
+
+  <!-- مشغل الصوت مع التحكم -->
+  <div class="audio-control">
+    <audio id="prank-audio" src="music.mp3" autoplay loop controls></audio>
+  </div>
+
 </body>
 </html>
