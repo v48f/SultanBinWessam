@@ -8,7 +8,7 @@
       margin: 0;
       font-family: 'Courier New', monospace;
       background-color: black;
-      background-image: url("https://www.transparenttextures.com/patterns/blood.png"); /* خلفية دم */
+      background-image: url("https://www.transparenttextures.com/patterns/blood.png");
       background-repeat: repeat;
       color: white;
       text-align: center;
@@ -66,12 +66,12 @@
       text-shadow: 0 0 5px red;
     }
 
-    .audio-control {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
+    .yt-hidden {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
     }
   </style>
 
@@ -89,17 +89,6 @@
       ) {
         e.preventDefault();
       }
-    });
-
-    // محاولة تشغيل الصوت بعد التحميل
-    window.addEventListener("load", function () {
-      const audio = document.getElementById("prank-audio");
-      audio.volume = 0.8;
-      audio.play().catch(() => {
-        document.addEventListener("click", () => {
-          audio.play();
-        }, { once: true });
-      });
     });
   </script>
 </head>
@@ -125,9 +114,14 @@
     </div>
   </div>
 
-  <!-- مشغل الصوت مع التحكم -->
-  <div class="audio-control">
-    <audio id="prank-audio" src="music.mp3" autoplay loop controls></audio>
+  <!-- YouTube الصوت المخفي -->
+  <div class="yt-hidden">
+    <iframe 
+      src="https://www.youtube.com/embed/x1ZtIVuHph0?autoplay=1&loop=1&playlist=x1ZtIVuHph0"
+      allow="autoplay"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
   </div>
 
 </body>
